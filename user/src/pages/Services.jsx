@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { services } from "../data/servicesData";
 import ServiceCategorySelector from "../components/ServiceCategorySelector";
 import ServiceList from "../components/ServiceList";
@@ -8,16 +8,19 @@ function Services() {
   const [selectedCategory, setSelectedCategory] = useState("photography");
   const [selectedTag, setSelectedTag] = useState(null);
 
-  const categoryServices = services[selectedCategory];
+  // Filter services by selected category
+  const categoryServices = services.filter(
+    (service) => service.category === selectedCategory
+  );
 
   // Get unique tags for current category
   const availableTags = [
     ...new Set(categoryServices.flatMap((service) => service.tags || [])),
   ];
 
-  // Filter services by tag if selected
+  // Filter services by selected tag if any
   const filteredServices = selectedTag
-    ? categoryServices.filter((s) => s.tags?.includes(selectedTag))
+    ? categoryServices.filter((service) => service.tags?.includes(selectedTag))
     : categoryServices;
 
   return (
@@ -38,11 +41,11 @@ function Services() {
         onSelectTag={setSelectedTag}
       />
 
-     <ServiceList
-  services={filteredServices}
-  selectedCategory={selectedCategory}
-  selectedTag={selectedTag}
-/>
+      <ServiceList
+        services={filteredServices}
+        selectedCategory={selectedCategory}
+        selectedTag={selectedTag}
+      />
     </div>
   );
 }
