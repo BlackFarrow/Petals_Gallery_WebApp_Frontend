@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+/* Global box sizing and layout reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Root container (full width) */
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
