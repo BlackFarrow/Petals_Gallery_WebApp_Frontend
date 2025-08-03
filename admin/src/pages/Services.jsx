@@ -1,106 +1,69 @@
-import React, { useState } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import React, { useEffect, useState } from "react";
 import ServiceForm from "../components/ServiceForm";
 import ServiceList from "../components/ServiceList";
+import axios from "axios";
 
 function Services() {
   // Example initial data, replace with API data
-  const [services, setServices] = useState([
-    {
-      id: 1,
-      name: "Wedding Photography",
-      category: "Weddings",
-      price: 1500,
-      description: "Capture your special day beautifully.",
-      imageUrl: "https://example.com/wedding.jpg",
-      active: true,
-    },
-    {
-      id: 2,
-      name: "Product Videography",
-      category: "Products",
-      price: 800,
-      description: "High-quality product videos to showcase your brand.",
-      imageUrl: "https://example.com/product-video.jpg",
-      active: false,
-    },
-  ]);
+  const [services, setServices] = useState([]);
 
-  const [editingService, setEditingService] = useState(null);
-  const [showForm, setShowForm] = useState(false);
+  //url from .env
+  const BACKEND_URL =
+    import.meta.env.BACKEND_URL || "http://localhost:4000/api";
 
-  const handleAddClick = () => {
-    setEditingService(null);
-    setShowForm(true);
-  };
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/services`);
+        setServices(response.data);
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      }
+    };
+    fetchServices();
+  }, []);
 
-  const handleFormSubmit = (serviceData) => {
-    if (editingService) {
-      // Update existing service
-      setServices((prev) =>
-        prev.map((svc) =>
-          svc.id === editingService.id ? { ...svc, ...serviceData } : svc
-        )
-      );
-    } else {
-      // Add new service (generate id)
-      const newService = {
-        id: Date.now(),
-        ...serviceData,
-      };
-      setServices((prev) => [newService, ...prev]);
-    }
-    setShowForm(false);
-  };
+  console.log(services);
 
-  const handleEdit = (service) => {
-    setEditingService(service);
-    setShowForm(true);
-  };
+  return  <div className="max-w-7xl mx-auto px-6 py-12 ">
+      {services.map((service) => (
+        <div
+          key={service.id}
+          className="bg-white rounded-lg  p-4 flex justify-between items-center mb-2 border-2 shadow-lg"
+        >
+          <div>
+            <h4 className="font-semibold text-lg">{service.title}</h4>
+            <p className="text-sm text-gray-600">{service.category}</p>
+            <p className="text-sm font-medium">${service.price}</p>
+            <p className="text-sm mt-1">{service.description}</p>
+            {service.active ? (
+              <span className="inline-block mt-1 text-green-600 font-semibold">
+                Active
+              </span>
+            ) : (
+              <span className="inline-block mt-1 text-red-600 font-semibold">
+                Inactive
+              </span>
+            )}
+          </div>
 
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this service?")) {
-      setServices((prev) => prev.filter((svc) => svc.id !== id));
-    }
-  };
-
-  const handleCancel = () => {
-    setShowForm(false);
-    setEditingService(null);
-  };
-
-  return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <main className="flex-grow max-w-5xl mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl font-semibold text-gray-800">
-            Manage Services
-          </h2>
-          <button
-            onClick={handleAddClick}
-            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
-          >
-            Add Service
-          </button>
+          <div className="space-x-2">
+            <button
+              
+              className="text-blue-600 hover:underline"
+            >
+              Edit
+            </button>
+            <button
+              
+              className="text-red-600 hover:underline"
+            >
+              Delete
+            </button>
+          </div>
         </div>
-
-        {showForm && (
-          <ServiceForm
-            initialData={editingService}
-            onSubmit={handleFormSubmit}
-            onCancel={handleCancel}
-          />
-        )}
-
-        <ServiceList
-          services={services}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
-      </main>
+      ))}
     </div>
-  );
 }
 
 export default Services;
