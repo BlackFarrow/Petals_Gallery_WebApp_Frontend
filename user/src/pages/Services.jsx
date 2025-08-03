@@ -1,10 +1,27 @@
-import { useState } from "react";
-import { services } from "../data/servicesData";
+import { useEffect, useState } from "react";
 import ServiceCategorySelector from "../components/ServiceCategorySelector";
 import ServiceList from "../components/ServiceList";
 import TagFilter from "../components/TagFilter";
 
+
+
+
+// get url from.env
+const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:4000/api";
+
 function Services() {
+
+
+  //fetch services data from backend
+  const [services, setServices] = useState([]);
+  useEffect(() => {
+    fetch(`${BACKEND_URL}/services`)
+      .then((response) => response.json())
+      .then((data) => setServices(data));
+  }, []);
+
+  console.log(services);
+
   const [selectedCategory, setSelectedCategory] = useState("photography");
   const [selectedTag, setSelectedTag] = useState(null);
 

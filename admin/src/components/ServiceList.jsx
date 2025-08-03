@@ -1,6 +1,6 @@
 import React from "react";
 
-function ServiceList({ services, onEdit, onDelete }) {
+function ServiceList({services}) {
   if (services.length === 0)
     return <p className="text-gray-600 italic">No services available.</p>;
 
@@ -14,7 +14,7 @@ function ServiceList({ services, onEdit, onDelete }) {
           <div>
             <h4 className="font-semibold text-lg">{service.name}</h4>
             <p className="text-sm text-gray-600">{service.category}</p>
-            <p className="text-sm font-medium">${service.price.toFixed(2)}</p>
+            <p className="text-sm font-medium">${service.price}</p>
             <p className="text-sm mt-1">{service.description}</p>
             {service.active ? (
               <span className="inline-block mt-1 text-green-600 font-semibold">
@@ -29,13 +29,13 @@ function ServiceList({ services, onEdit, onDelete }) {
 
           <div className="space-x-2">
             <button
-              onClick={() => onEdit(service)}
+              
               className="text-blue-600 hover:underline"
             >
               Edit
             </button>
             <button
-              onClick={() => onDelete(service.id)}
+              
               className="text-red-600 hover:underline"
             >
               Delete
