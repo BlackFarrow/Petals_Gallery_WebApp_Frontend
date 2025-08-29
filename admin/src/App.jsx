@@ -8,6 +8,7 @@ import Quotations from "./pages/Quotations";
 import Inquiries from "./pages/Inquiries";
 import Users from "./pages/Users";
 import Settings from "./pages/Settings";
+import { Navigate } from "react-router-dom";
 
 function App() {
   return (
@@ -15,12 +16,10 @@ function App() {
       <Header />
       <main className="flex-grow">
         <Routes>
+          <Route path="/" element={<Navigate to="/admin" replace />} />
           <Route path="/admin" element={<Overview />} />
           <Route path="/admin/services" element={<Services />} />
-          <Route path="/admin/quotations" element={<Quotations />} />
-          <Route path="/admin/inquiries" element={<Inquiries />} />
-          <Route path="/admin/users" element={<Users />} />
-        <Route path="/admin/settings" element={<Settings />} />
+          <Route path="/admin/settings" element={<Settings />} />
         </Routes>
       </main>
       <Footer />
