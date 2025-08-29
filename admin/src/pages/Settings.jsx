@@ -55,14 +55,15 @@ function Settings() {
   };
 
   // Save settings
+  // Save settings
   const handleSave = async () => {
     try {
-      await axios.post("http://localhost:4000/api/settings/", formData);
-      console.log("💾 Settings saved:", formData);
-      alert("✅ Settings saved successfully!");
+      await axios.put("http://localhost:4000/api/settings/", formData);
+      console.log("✅ Settings saved successfully!");
+      setStatusMessage("✅ Settings saved successfully!");
     } catch (err) {
       console.error("❌ Error saving settings:", err);
-      alert("❌ Failed to save settings");
+      setStatusMessage("❌ Failed to save settings.");
     }
   };
 
