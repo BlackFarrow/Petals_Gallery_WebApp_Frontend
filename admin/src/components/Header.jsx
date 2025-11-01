@@ -5,9 +5,6 @@ function Header() {
   const navItems = [
     { name: "Overview", path: "/admin" },
     { name: "Services", path: "/admin/services" },
-    { name: "Quotations", path: "/admin/quotations" },
-    { name: "Inquiries", path: "/admin/inquiries" },
-    { name: "Users", path: "/admin/users" },
     { name: "Settings", path: "/admin/settings" }, // ✅ Added this
   ];
 
