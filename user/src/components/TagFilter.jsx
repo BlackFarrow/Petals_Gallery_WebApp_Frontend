@@ -1,4 +1,3 @@
-// src/components/TagFilter.jsx
 import React from "react";
 
 function TagFilter({ tags, selectedTag, onSelectTag }) {
@@ -6,10 +5,10 @@ function TagFilter({ tags, selectedTag, onSelectTag }) {
     <div className="flex flex-wrap gap-4 justify-center mb-8">
       <button
         onClick={() => onSelectTag(null)}
-        className={`px-4 py-2 rounded-full font-medium transition ${
+        className={`px-4 py-2 rounded-full font-medium transition-colors duration-300 ${
           selectedTag === null
-            ? "bg-yellow-600 text-white"
-            : "bg-gray-200 hover:bg-gray-300"
+            ? "bg-blue-500 text-white shadow-lg"
+            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
         }`}
       >
         All
@@ -18,10 +17,10 @@ function TagFilter({ tags, selectedTag, onSelectTag }) {
         <button
           key={tag}
           onClick={() => onSelectTag(tag)}
-          className={`px-4 py-2 rounded-full font-medium transition ${
+          className={`px-4 py-2 rounded-full font-medium transition-colors duration-300 ${
             selectedTag === tag
-              ? "bg-yellow-600 text-white"
-              : "bg-gray-200 hover:bg-gray-300"
+              ? "bg-blue-500 text-white shadow-lg"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
           }`}
         >
           {tag.charAt(0).toUpperCase() + tag.slice(1)}

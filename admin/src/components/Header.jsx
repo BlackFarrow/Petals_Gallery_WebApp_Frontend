@@ -1,42 +1,16 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
 
 function Header() {
-  const navItems = [
-    { name: "Overview", path: "/admin" },
-    { name: "Services", path: "/admin/services" },
-    { name: "Settings", path: "/admin/settings" }, // ✅ Added this
-  ];
-
   return (
-    <header className="w-full bg-[#3b240c] text-white shadow-md">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Logo / Title */}
-        <div className="flex items-center space-x-2 font-semibold text-xl">
-          <span role="img" aria-label="gear">
-            ⚙️
-          </span>
-          <span className="font-bold tracking-wide">Admin Panel</span>
-        </div>
-
-        {/* Navigation Links */}
-        <nav className="flex space-x-6 text-sm font-medium">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.name}
-              to={item.path}
-              className={({ isActive }) =>
-                `transition ${
-                  isActive
-                    ? "text-yellow-400"
-                    : "text-white hover:text-yellow-400"
-                }`
-              }
-            >
-              {item.name}
-            </NavLink>
-          ))}
-        </nav>
+    <header className="bg-white shadow-sm p-4 flex justify-end items-center sticky top-0 z-40">
+      <div className="relative">
+        <input
+          type="text"
+          placeholder="Search..."
+          className="px-4 py-2 rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <FaSearch className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
       </div>
     </header>
   );

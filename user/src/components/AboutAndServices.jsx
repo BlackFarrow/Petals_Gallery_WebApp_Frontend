@@ -1,53 +1,61 @@
 import React from "react";
+import { FaCameraRetro, FaVideo, FaUsers } from "react-icons/fa";
 
 function AboutAndServices() {
   return (
-    <section className="py-20 bg-gradient-to-r from-yellow-200 to-yellow-50 text-gray-900">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
-        {/* About Us */}
-        <div>
-          <h3 className="text-2xl font-bold mb-4">About Us</h3>
-          <p className="mb-6">
-            We are passionate photographers dedicated to capturing your story
-            with authenticity and artistry.
+    <div className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="lg:text-center">
+          <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Our Services</h2>
+          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            What We Do
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700">
-            <li>Our History</li>
-            <li>Our Vision</li>
-            <li>Meet the Team</li>
-          </ul>
+          <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+            We offer a range of photography and videography services to capture your most precious moments.
+          </p>
         </div>
 
-        {/* Our Story */}
-        <div>
-          <h3 className="text-2xl font-bold mb-4">Our Story</h3>
-          <p className="mb-6">
-            Founded in 2010, we have grown into a team of artists who believe in
-            the power of moments.
-          </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700">
-            <li>Milestones</li>
-            <li>Community Work</li>
-            <li>Client Testimonials</li>
-          </ul>
-        </div>
+        <div className="mt-10">
+          <div className="grid gap-10 md:grid-cols-3">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out p-8 flex flex-col items-center text-center">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                <FaCameraRetro size={24} />
+              </div>
+              <div className="mt-5">
+                <h3 className="text-lg leading-6 font-medium text-gray-900">Photography</h3>
+                <p className="mt-2 text-base text-gray-500">
+                  We offer a wide range of photography services, including weddings, portraits, and events. We are dedicated to capturing your story with authenticity and artistry.
+                </p>
+              </div>
+            </div>
 
-        {/* Services & Packages */}
-        <div>
-          <h3 className="text-2xl font-bold mb-4">Services & Packages</h3>
-          <p className="mb-6">
-            Tailored packages to suit your needs, whether for weddings,
-            portraits, or events.
-          </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700">
-            <li>Wedding Packages</li>
-            <li>Portrait Sessions</li>
-            <li>Event Coverage</li>
-            <li>Custom Requests</li>
-          </ul>
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out p-8 flex flex-col items-center text-center">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                <FaVideo size={24} />
+              </div>
+              <div className="mt-5">
+                <h3 className="text-lg leading-6 font-medium text-gray-900">Videography</h3>
+                <p className="mt-2 text-base text-gray-500">
+                  Our videography services are perfect for capturing the emotion and excitement of your special day. We create beautiful, cinematic films that you will treasure for a lifetime.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out p-8 flex flex-col items-center text-center">
+              <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
+                <FaUsers size={24} />
+              </div>
+              <div className="mt-5">
+                <h3 className="text-lg leading-6 font-medium text-gray-900">Our Team</h3>
+                <p className="mt-2 text-base text-gray-500">
+                  Our team of experienced photographers and videographers are passionate about their work and dedicated to providing you with the best possible service.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 

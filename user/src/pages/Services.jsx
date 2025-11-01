@@ -27,7 +27,7 @@ function Services() {
 
   // Filter services by selected category
   const categoryServices = services.filter(
-    (service) => service.category === selectedCategory
+    (service) => service.category === selectedCategory && (service.active === true || service.active === undefined)
   );
 
   // Get unique tags for current category

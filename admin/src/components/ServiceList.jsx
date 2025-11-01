@@ -14,7 +14,7 @@ function ServiceList({services}) {
           <div>
             <h4 className="font-semibold text-lg">{service.name}</h4>
             <p className="text-sm text-gray-600">{service.category}</p>
-            <p className="text-sm font-medium">${service.price}</p>
+            <p className="text-sm font-medium">Rs.{service.price}</p>
             <p className="text-sm mt-1">{service.description}</p>
             {service.active ? (
               <span className="inline-block mt-1 text-green-600 font-semibold">

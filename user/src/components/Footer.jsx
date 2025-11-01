@@ -1,11 +1,21 @@
-import React from "react";
+import React from 'react';
+import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer className="bg-[#4A2E0F] text-white text-center py-6">
-      <p>&copy; {new Date().getFullYear()} Photomatic. All rights reserved.</p>
-    </footer>
+    <div className='bg-gray-900 text-white'>
+      <div className='max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8'>
+        <div className='flex justify-between items-center'>
+          <p className='text-gray-400'>&copy; {new Date().getFullYear()} Petals Gallery. All rights reserved.</p>
+          <div className='flex space-x-6'>
+            <a href='#' className='text-gray-400 hover:text-white'><FaFacebook size={20} /></a>
+            <a href='#' className='text-gray-400 hover:text-white'><FaInstagram size={20} /></a>
+            <a href='#' className='text-gray-400 hover:text-white'><FaTwitter size={20} /></a>
+          </div>
+        </div>
+      </div>
+    </div>
   );
-}
+};
 
 export default Footer;
