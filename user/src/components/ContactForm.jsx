@@ -18,47 +18,46 @@ function ContactForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white shadow p-6 rounded-lg space-y-4 max-w-2xl mx-auto"
-    >
-      <input
-        type="text"
-        name="name"
-        placeholder="Your Name"
-        value={formData.name}
-        onChange={handleChange}
-        className="w-full border px-4 py-2 rounded"
-        required
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Your Email"
-        value={formData.email}
-        onChange={handleChange}
-        className="w-full border px-4 py-2 rounded"
-        required
-      />
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          value={formData.name}
+          onChange={handleChange}
+          className="w-full bg-gray-100 border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full bg-gray-100 border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500"
+          required
+        />
+      </div>
       <input
         type="text"
         name="subject"
         placeholder="Subject"
         value={formData.subject}
         onChange={handleChange}
-        className="w-full border px-4 py-2 rounded"
+        className="w-full bg-gray-100 border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500"
       />
       <textarea
         name="message"
         placeholder="Your Message"
         value={formData.message}
         onChange={handleChange}
-        className="w-full border px-4 py-2 rounded h-32"
+        className="w-full bg-gray-100 border-2 border-gray-200 rounded-lg px-4 py-3 h-32 focus:outline-none focus:border-blue-500"
         required
       />
       <button
         type="submit"
-        className="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-2 rounded"
+        className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold px-6 py-3 rounded-lg transition-colors duration-300"
       >
         Send Message
       </button>

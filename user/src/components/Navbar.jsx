@@ -1,168 +1,116 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { FaBars, FaTimes, FaMoon, FaSun } from "react-icons/fa";
 
 function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [nav, setNav] = useState(false);
+  const [color, setColor] = useState("transparent");
+  const [textColor, setTextColor] = useState("white");
+  const [darkMode, setDarkMode] = useState(false);
   const [settings, setSettings] = useState({
-    businessName: "Photomatic",
-    currency: "",
+    businessName: "Petals Gallery",
     logoUrl: "",
-    primaryColor: "#000000",
   });
 
-  // ✅ Fetch settings on mount
-useEffect(() => {
-  const fetchSettings = async () => {
-    try {
-      const res = await axios.get("http://localhost:4000/api/settings/");
-      console.log("📥 Settings fetched for Navbar:", res.data);
-
-      if (res.data && typeof res.data === "object") {
-        setSettings({
-          businessName: res.data.businessName || "",
-          currency: res.data.currency || "",
-          logoUrl: res.data.logoUrl || "",
-          primaryColor: res.data.primaryColor || "#000000",
-        });
-      } else {
-        console.warn("⚠️ No settings found for Navbar");
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await axios.get("http://localhost:4000/api/settings/");
+        if (res.data && typeof res.data === "object") {
+          setSettings({
+            businessName: res.data.businessName || "Petals Gallery",
+            logoUrl: res.data.logoUrl || "",
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching settings for Navbar:", error);
       }
-    } catch (error) {
-      console.error("Error fetching settings for Navbar:", error);
-    }
-  };
+    };
+    fetchSettings();
+  }, []);
 
-  fetchSettings();
-}, [settings]);
+  useEffect(() => {
+    const changeColor = () => {
+      if (window.scrollY >= 90) {
+        setColor("#ffffff");
+        setTextColor("#000000");
+      } else {
+        setColor("transparent");
+        setTextColor("#ffffff");
+      }
+    };
+    window.addEventListener("scroll", changeColor);
+    return () => {
+      window.removeEventListener("scroll", changeColor);
+    };
+  }, []);
 
+  const handleNav = () => setNav(!nav);
 
   return (
-    <nav
-      className="w-full text-white shadow-md"
-      style={{ backgroundColor: settings.primaryColor }}
+    <div
+      style={{ backgroundColor: `${color}` }}
+      className="fixed left-0 top-0 w-full z-10 ease-in duration-300"
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo + Business Name */}
-        <div className="flex items-center space-x-2 font-semibold text-xl">
+      <div className="max-w-[1240px] m-auto flex justify-between items-center p-4 text-white">
+        <Link to="/">
           {settings.logoUrl ? (
-            <img
-              src={settings.logoUrl}
-              alt="Logo"
-              className="h-8 w-8 object-contain"
-            />
+            <img src={settings.logoUrl} alt={settings.businessName} className="h-10" />
           ) : (
-            <span role="img" aria-label="tree">
-              🌲
-            </span>
+            <h1 style={{ color: `${textColor}` }} className="font-bold text-4xl">
+              {settings.businessName}
+            </h1>
           )}
-          <span className="font-bold tracking-wide">
-            {settings.businessName}
-          </span>
-        </div>
-
-        {/* Navigation Links (Desktop) */}
-        <ul className="hidden md:flex space-x-8 items-center text-sm font-medium">
-          <li>
-            <Link to="/" className="hover:opacity-75 transition">
-              Home
-            </Link>
+        </Link>
+        <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
+          <li className="p-4">
+            <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/services" className="hover:opacity-75 transition">
-              Services
-            </Link>
+          <li className="p-4">
+            <Link to="/services">Services</Link>
           </li>
-          <li>
-            <Link to="/quote" className="hover:opacity-75 transition">
-              Quote
-            </Link>
+          <li className="p-4">
+            <Link to="/quote">Quote</Link>
           </li>
-          <li>
-            <Link to="/contact" className="hover:opacity-75 transition">
-              Contact
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/book"
-              className="ml-4 text-white px-4 py-2 rounded-full text-sm font-semibold transition"
-              style={{ backgroundColor: settings.primaryColor }}
-            >
-              Book Now
-            </Link>
+          <li className="p-4">
+            <Link to="/contact">Contact</Link>
           </li>
         </ul>
 
-        {/* Hamburger Menu (Mobile) */}
-        <div className="md:hidden">
-          <button
-            className="focus:outline-none"
-            aria-label="Open menu"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <svg
-              className="w-7 h-7"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d={
-                  mobileMenuOpen
-                    ? "M6 18L18 6M6 6l12 12"
-                    : "M4 6h16M4 12h16M4 18h16"
-                }
-              />
-            </svg>
-          </button>
+        {/* Mobile Button */}
+        <div onClick={handleNav} className="block sm:hidden z-10">
+          {nav ? (
+            <FaTimes size={20} style={{ color: `${textColor}` }} />
+          ) : (
+            <FaBars size={20} style={{ color: `${textColor}` }} />
+          )}
         </div>
-      </div>
-
-      {/* Mobile Menu Dropdown */}
-      {mobileMenuOpen && (
+        {/* Mobile Menu */}
         <div
-          className="md:hidden px-6 pb-4"
-          style={{ backgroundColor: settings.primaryColor }}
+          className={
+            nav
+              ? "sm:hidden absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center w-full h-screen bg-black text-center ease-in duration-300"
+              : "sm:hidden absolute top-0 left-[-100%] right-0 bottom-0 flex justify-center items-center w-full h-screen bg-black text-center ease-in duration-300"
+          }
         >
-          <ul className="flex flex-col space-y-4 text-sm font-medium">
-            <li>
-              <Link to="/" className="hover:opacity-75 transition">
-                Home
-              </Link>
+          <ul>
+            <li onClick={handleNav} className="p-4 text-4xl hover:text-gray-500">
+              <Link to="/">Home</Link>
             </li>
-            <li>
-              <Link to="/services" className="hover:opacity-75 transition">
-                Services
-              </Link>
+            <li onClick={handleNav} className="p-4 text-4xl hover:text-gray-500">
+              <Link to="/services">Services</Link>
             </li>
-            <li>
-              <Link to="/quote" className="hover:opacity-75 transition">
-                Quote
-              </Link>
+            <li onClick={handleNav} className="p-4 text-4xl hover:text-gray-500">
+              <Link to="/quote">Quote</Link>
             </li>
-            <li>
-              <Link to="/contact" className="hover:opacity-75 transition">
-                Contact
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/book"
-                className="text-white px-4 py-2 rounded-full text-sm font-semibold transition text-center block"
-                style={{ backgroundColor: settings.primaryColor }}
-              >
-                Book Now
-              </Link>
+            <li onClick={handleNav} className="p-4 text-4xl hover:text-gray-500">
+              <Link to="/contact">Contact</Link>
             </li>
           </ul>
         </div>
-      )}
-    </nav>
+      </div>
+    </div>
   );
 }
 
