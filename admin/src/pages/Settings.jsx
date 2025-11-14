@@ -7,6 +7,8 @@ function Settings() {
     logoUrl: "",
   });
   const [statusMessage, setStatusMessage] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState("");
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -15,6 +17,7 @@ function Settings() {
         const latest = Array.isArray(res.data) && res.data.length > 0 ? res.data[res.data.length - 1] : res.data;
         if (latest) {
           setFormData(latest);
+          setPreviewUrl(latest.logoUrl || "");
           setStatusMessage("Settings loaded successfully!");
         }
       } catch (err) {
@@ -27,6 +30,20 @@ function Settings() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      // Create a preview URL
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+        setFormData({ ...formData, logoUrl: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSave = async () => {
@@ -64,12 +81,11 @@ function Settings() {
               />
             </div>
             <div>
-              <label className="block font-medium mb-1">Logo URL</label>
+              <label className="block font-medium mb-1">Logo</label>
               <input
-                type="text"
-                name="logoUrl"
-                value={formData.logoUrl}
-                onChange={handleChange}
+                type="file"
+                name="logo"
+                onChange={handleFileChange}
                 className="w-full border rounded-lg px-3 py-2 bg-gray-50"
               />
             </div>
@@ -88,8 +104,8 @@ function Settings() {
           <h3 className="text-xl font-semibold mb-6">Live Preview</h3>
           <div className="rounded-lg p-6 border-t-4">
             <div className="flex items-center space-x-4 mb-6">
-              {formData.logoUrl && (
-                <img src={formData.logoUrl} alt="Logo" className="h-16 w-16 object-contain" />
+              {previewUrl && (
+                <img src={previewUrl} alt="Logo" className="h-16 w-16 object-contain" />
               )}
               <h2 className="text-2xl font-bold">
                 {formData.businessName || "Business Name"}
