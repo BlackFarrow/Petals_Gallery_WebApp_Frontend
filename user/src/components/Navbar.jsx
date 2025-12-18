@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { FaBars, FaTimes, FaMoon, FaSun } from "react-icons/fa";
 
@@ -12,6 +12,7 @@ function Navbar() {
     businessName: "Petals Gallery",
     logoUrl: "",
   });
+  const location = useLocation();
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -32,19 +33,25 @@ function Navbar() {
 
   useEffect(() => {
     const changeColor = () => {
+      const isServicesOrQuote =
+        location.pathname === "/services" || location.pathname === "/quote";
       if (window.scrollY >= 90) {
         setColor("#ffffff");
+        setTextColor("#000000");
+      } else if (isServicesOrQuote) {
+        setColor("transparent");
         setTextColor("#000000");
       } else {
         setColor("transparent");
         setTextColor("#ffffff");
       }
     };
+    changeColor();
     window.addEventListener("scroll", changeColor);
     return () => {
       window.removeEventListener("scroll", changeColor);
     };
-  }, []);
+  }, [location.pathname]);
 
   const handleNav = () => setNav(!nav);
 

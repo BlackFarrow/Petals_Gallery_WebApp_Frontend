@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"; // ✅ Import Link
-import heroImage from "../assets/hero1.jpg";
+import heroImage from "../assets/2.jpg";
 
 function SectionImageRight() {
   return (

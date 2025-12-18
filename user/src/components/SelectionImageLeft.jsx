@@ -1,5 +1,5 @@
 import React from "react";
-import heroImage from "../assets/hero1.jpg";
+import heroImage from "../assets/1.jpg";
 
 function SectionImageLeft() {
   return (
