@@ -4,7 +4,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import heroImage from "../assets/hero1.jpg";
+import image1 from "../assets/1.jpg";
+import image2 from "../assets/2.jpg";
+import image3 from "../assets/3.jpg";
 
 function OurServices() {
   const services = [
@@ -12,19 +14,19 @@ function OurServices() {
       id: 1,
       name: "Wedding Photography",
       description: "Capture your special day with elegance.",
-      imgSrc: heroImage,
+      imgSrc: image1,
     },
     {
       id: 2,
       name: "Portrait Sessions",
       description: "Timeless portraits for every occasion.",
-      imgSrc: heroImage,
+      imgSrc: image2,
     },
     {
       id: 3,
       name: "Event Coverage",
       description: "Comprehensive coverage for your events.",
-      imgSrc: heroImage,
+      imgSrc: image3,
     },
   ];
 
