@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import heroImage from "../assets/1.jpg";
 
 function SectionImageLeft() {
@@ -24,12 +25,12 @@ function SectionImageLeft() {
             story. Book your session today and create memories that last a
             lifetime.
           </p>
-          <a
-            href="/booking"
+          <Link
+            to="/services"
             className="inline-block bg-yellow-500 text-white px-6 py-3 rounded-lg shadow hover:bg-yellow-600 font-semibold transition"
           >
             Book Your Session
-          </a>
+          </Link>
         </div>
       </div>
     </section>
